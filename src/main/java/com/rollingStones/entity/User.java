@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -29,6 +31,13 @@ public class User implements Serializable {
     @Column(name="user_name")
     private String userName;
     
+    @Column(name="create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String createTime;
+    
+    @Column(name="update_time")
+    private String updateTime;
+    
     public int getId() {
         return id;
     }
@@ -44,4 +53,20 @@ public class User implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 }

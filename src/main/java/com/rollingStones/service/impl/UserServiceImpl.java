@@ -14,8 +14,9 @@ import com.rollingStones.entity.User;
 import com.rollingStones.service.UserService;
 
 /**
- * Created by mark on 4/24/15.
- * @param <T>
+ * 
+ * Created by mengya on 2017年6月20日
+ *
  */
 @Service("userService")
 @Transactional

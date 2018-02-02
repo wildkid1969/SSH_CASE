@@ -8,7 +8,7 @@ public class TestString {
 	    str=String.format("Hi,%s:%s.%s", "王南","王力","王张");       
 	    System.out.println(str);
 	    
-	   /*
+	   /**
 	    * %06d :  
 		* %是格式化输入接受参数的标记  
 		* 0格式化命令：结果将用零来填充  
@@ -17,5 +17,9 @@ public class TestString {
 	    */
 	    String s = String.format("%06d",154651321);
 	    System.out.println(s);
+	    
+	    System.out.println("换行\n了吗");
+	    System.out.println("换行\r了吗");
+	    System.out.println("换行\n\r了吗");
 	}
 }
