@@ -9,13 +9,26 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.StringUtils;
-
 import net.sf.json.JSONObject;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.springframework.util.StringUtils;
 
 public class HttpUtils {
 
@@ -42,9 +55,10 @@ public class HttpUtils {
 			URL getUrl = new URL(getURL);
 			HttpURLConnection connection = (HttpURLConnection) getUrl.openConnection();
 			connection.setRequestProperty("Accept-Charset", charset);
-			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 5.0.1; GT-I9502 Build/LRX22C; wv) "
-					+ "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.121 Mobile Safari/537.36 "
-					+ "MicroMessenger/6.1.0.78_r1129455.543 NetType/WIFI");
+			//设置成微信访问
+//			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 5.0.1; GT-I9502 Build/LRX22C; wv) "
+//					+ "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.121 Mobile Safari/537.36 "
+//					+ "MicroMessenger/6.1.0.78_r1129455.543 NetType/WIFI");
 			connection.setConnectTimeout(2000);
 			connection.setReadTimeout(2000);
 			connection.connect();
@@ -80,7 +94,7 @@ public class HttpUtils {
 			conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible;MSIE 7.0; Windows NT 5.1; Maxthon;)"); 
 			// 设置 HttpURLConnection的字符编码
 	        conn.setRequestProperty("Accept-Charset", "UTF-8");
-	        conn.setRequestProperty("Referer", "http://i.aixuexi.com");
+//	        conn.setRequestProperty("Referer", "http://i.aixuexi.com");
 
 	        
 			// 发送POST请求必须设置如下两行
@@ -113,6 +127,40 @@ public class HttpUtils {
 		}
 		return result;
 	}
+	
+	
+	public static String doHttpsPost(String url, Map<String, String> map, String charset) {  
+        HttpClient httpClient = null;  
+        HttpPost httpPost = null;  
+        String result = null;  
+        try {  
+            httpClient = new SSLClient();  
+            httpPost = new HttpPost(url);  
+            // 设置参数  
+            List<NameValuePair> list = new ArrayList<NameValuePair>();  
+            Iterator iterator = map.entrySet().iterator();  
+            while (iterator.hasNext()) {  
+                Entry<String, String> elem = (Entry<String, String>) iterator  
+                        .next();  
+                list.add(new BasicNameValuePair(elem.getKey(), elem.getValue()));  
+            }  
+            if (list.size() > 0) {  
+                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(list,  
+                        charset);  
+                httpPost.setEntity(entity);  
+            }  
+            HttpResponse response = httpClient.execute(httpPost);  
+            if (response != null) {  
+                HttpEntity resEntity = response.getEntity();  
+                if (resEntity != null) {  
+                    result = EntityUtils.toString(resEntity, charset);  
+                }  
+            }  
+        } catch (Exception ex) {  
+            ex.printStackTrace();  
+        }  
+        return result;  
+    }  
 	
 	/** 
      * 发起https请求并获取结果 (创建菜单用到)
@@ -209,17 +257,4 @@ public class HttpUtils {
         return ua;
     }
     
-    public static void main(String[] args) throws InterruptedException {
-//		String s = sendPost("https://i.aixuexi.com/changePwd/requestVerifyCode","username=15011122311");
-//		String s = sendPost("http://localhost:8080/theWolverine/userEvaluation/previewReport","courseId=2200&userId=37899&sign=498b635f4215c7960027b1fda3fc0d86");
-//		System.out.println(s);
-    	String url = "https://fp.corpautohome.com/data/ap2018/pic/wx/list/6Jru6z?callback=jsonp1&_=1516942429590";
-    	
-    	for(int i=0;i<100000;i++){
-    		doGet(url, "utf-8");
-        	System.out.println(i);
-//        	Thread.sleep(10);
-    	}
-	}
-
 }
