@@ -13,6 +13,8 @@ public class FacePlusPlusTest {
 	 * 可以检测图片内的所有人脸，对于每个检测出的人脸，会给出其唯一标识 face_token，可用于后续的人脸分析、人脸比对等操作。对于正式 API Key，支持指定图片的某一区域进行人脸检测。
 	 * 本 API 支持对检测到的人脸直接进行分析，获得人脸的关键点和各类属性信息。对于试用 API Key，最多只对人脸框面积最大的 5 个人脸进行分析，
 	 * 其他检测到的人脸可以使用 Face Analyze API 进行分析。对于正式 API Key，支持分析所有检测到的人脸。
+	 * 
+	 * @param imgUrl 要检测的图片链接
 	 */
 	public static void detect(String imgUrl){
 		String url = "https://api-cn.faceplusplus.com/facepp/v3/detect";
@@ -30,6 +32,7 @@ public class FacePlusPlusTest {
 	
 	/**
 	 * 传入在 Detect API 检测出的人脸标识 face_token，分析得出人脸关键点，人脸属性信息。一次调用最多支持分析 5 个人脸。
+	 * @param token  在Detect API 检测出的人脸标识 face_token
 	 */
 	public static void faceAnalyze(String token){
 		String url = "https://api-cn.faceplusplus.com/facepp/v3/face/analyze";
