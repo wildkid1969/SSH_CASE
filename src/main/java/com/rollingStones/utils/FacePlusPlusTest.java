@@ -26,7 +26,7 @@ public class FacePlusPlusTest {
     	map.put("return_landmark", "0");
     	map.put("return_attributes", "gender,age,beauty,ethnicity,emotion,skinstatus");
     	
-    	String result = HttpUtils.doHttpsPost(url, map,"utf-8");
+    	String result = HttpClientUtils.doHttpsPost(url, map,"utf-8");
     	System.out.println(result);
 	}
 	
@@ -44,7 +44,7 @@ public class FacePlusPlusTest {
     	map.put("return_landmark", "0");
     	map.put("return_attributes", "gender,age,beauty,ethnicity,emotion,skinstatus");
     	
-    	String result = HttpUtils.doHttpsPost(url, map,"utf-8");
+    	String result = HttpClientUtils.doHttpsPost(url, map,"utf-8");
     	System.out.println(result);
 	}
 	
