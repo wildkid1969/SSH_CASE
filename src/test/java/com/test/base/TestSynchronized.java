@@ -11,7 +11,12 @@ public class TestSynchronized extends Thread {
 		 * 
 		 * 当一个线程访问对象的一个synchronized(this)同步代码块时，另一个线程仍然可以访问该对象中的非synchronized(this)同步代码块。
 		 * 
-		 * 括号里如果是静态成员变量或者是这个类，则会同步这个类的所有对象
+		 * synchronized括号里如果是静态成员变量或者是这个类 ,或者修饰静态方法,则会同步这个类的所有对象
+		 * 如：synchronized(lock){} 
+		 *    或者 
+		 *    synchronized(TestSynchronized.class){} 
+		 *    或者 
+		 *    public synchronized static void method(){}
 		 */
 		synchronized(lock){//修饰代码块（如果改成修饰一个方法，效果一样 public synchronized void method(){}）
 			for(int i=0;i<10;i++){
@@ -24,13 +29,15 @@ public class TestSynchronized extends Thread {
 			}
 		}
 	}
+	
+	
 	/**
 	 * 1.当有一个明确的对象作为锁时，就可以用类似下面这样的方式写程序。
 	 */
 	public void method3(Object obj){
 		//obj 锁定的对象
 		synchronized (this){
-			
+			// todo 同步代码块
 		}
 	}
 	
@@ -46,7 +53,7 @@ public class TestSynchronized extends Thread {
 	}
 	 
 	public void run1() {
-	 
+		// todo 覆盖的run方法
 	}
 	   
 	
