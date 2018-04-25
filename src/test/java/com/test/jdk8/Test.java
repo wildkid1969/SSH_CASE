@@ -7,8 +7,12 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.google.common.collect.Lists;
 
 public class Test {
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         //交易员 1 人名 2 城市
         Trader raoul = new Trader("Raoul", "Cambridge");
@@ -73,5 +77,39 @@ public class Test {
         Optional<Transaction> min = transactions.stream()
                 .min(Comparator.comparingInt(Transaction::getValue));
         System.out.println(min.orElseThrow(IllegalArgumentException::new));
+        
+        
+        List<Integer> nums = Lists.newArrayList(1,null,3,4,null,6);
+        
+        int count1 = 0;
+        for(Integer num : nums){
+            if(num != null){
+                count1++;
+            }
+        }
+        System.out.println(count1);//4
+        
+        long count2 = nums.stream()
+            .filter(num -> num != null)
+            .count();
+        System.out.println(count2);//4
+        
+        List<String> words = Lists.newArrayList("Apple","Bug","Abc","Dog");
+        Stream<String> stream = words.stream();
+        
+        
+        OptionalInt maxLength= words.stream() 
+                .filter(s -> s.startsWith("A")) 
+                .mapToInt(String::length) 
+                .max();
+        
+        System.out.println(maxLength.orElse(0));//return isPresent ? value : other;
+
+        // 1.使用Stream静态方法来创建Stream
+        Stream<Integer> integerStream = Stream.of(1, 2, 3, 5);
+        Stream<String> stringStream = Stream.of("taobao");
+        
+        // 2.通过Collection子类获取Stream
+        
     }
 }
