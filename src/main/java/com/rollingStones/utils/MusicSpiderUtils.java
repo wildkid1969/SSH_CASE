@@ -18,9 +18,9 @@ public class MusicSpiderUtils {
         String url = "http://www.xiami.com/album/"+albumId;
         
         Document doc = Jsoup.connect(url).get();
-        
+        System.out.println(doc.toString());
         Element ele = doc.getElementById("track");
-        
+        System.out.println(ele.toString());
 //      Elements eles = ele.getElementsByAttributeValue("class", "trackid");
 //      for(Element e:eles){
 //          System.out.println(e.html());
@@ -99,14 +99,14 @@ public class MusicSpiderUtils {
     
     public static void main(String[] args) throws IOException {
         //获取虾米专辑曲目列表
-//        String albumId="596080176";
-//        getXiamiSongTracks(albumId);
-//        System.out.println("\n\n\n");
-//        //获取虾米专辑歌词
-//        getXiamiSongLyrics(albumId);
+        String albumId="2102741521";
+        getXiamiSongTracks(albumId);
+        System.out.println("\n\n\n");
+        //获取虾米专辑歌词
+        getXiamiSongLyrics(albumId);
         
         //获取网易云音乐的专辑介绍和歌曲列表（歌词通过token获取的TNND）
-        int albumId = 36715012;
-        getNeteaseCloudSongTracks(albumId);
+//        int albumId = 36715012;
+//        getNeteaseCloudSongTracks(albumId);
     }
 }
