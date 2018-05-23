@@ -1,6 +1,5 @@
 package com.test.base;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -67,7 +66,6 @@ public class TestCopyOnWrite {
 		
 		executorService.shutdown();
 	}
-	
 	public static void main(String[] args) {
 		new TestCopyOnWrite().run();
 	}

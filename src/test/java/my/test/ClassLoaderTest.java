@@ -3,12 +3,10 @@ package my.test;
 public class ClassLoaderTest {
 	static int d = 3;
 	static {
-		System.out.println("我是ClassLoaderProduce类");
+		System.out.println(d+"我是ClassLoaderProduce类");
 	}
 
 	public static void main(String[] args) {
-		int b = 0;
-		String c = "hello";
 		SimpleClass simpleClass = new SimpleClass();
 		simpleClass.run();
 	}
