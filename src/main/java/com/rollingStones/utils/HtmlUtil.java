@@ -1,4 +1,13 @@
 package com.rollingStones.utils;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,5 +162,37 @@ public class HtmlUtil {
 
         return htmlStr.trim(); // 返回文本字符串
     }
+    
+    /**
+     * 将传入的文件里的html代码洗去，放到新的文件里
+     * @param filePath
+     * @throws IOException
+     */
+    public static void handleTXTWithDelHTML(String filePath) throws IOException{
+    	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filePath)),
+                "GBK"));
+
+    	String lineTxt = null;
+    	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("D:/结果.txt")),
+                "UTF-8"));
+        while ((lineTxt = br.readLine()) != null) {
+        	lineTxt = delHTMLTag2(lineTxt);
+        	bw.write(lineTxt);
+        	bw.write("\n");
+        	bw.flush();
+        }
+        
+        if(bw != null){
+        	bw.close();
+        }
+        
+        if(br != null){
+        	br.close();
+        }
+    }
+    
+    public static void main(String[] args) throws IOException {
+    	handleTXTWithDelHTML("d:/1.txt");
+	}
     
 }
