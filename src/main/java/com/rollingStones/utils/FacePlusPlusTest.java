@@ -1,8 +1,14 @@
 package com.rollingStones.utils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.rollingStones.entity.User;
 
 public class FacePlusPlusTest {
 	private static final String API_KEY = "g1MipZY9yzfOhXFI48zsMjSUGQoHzgGb";
@@ -26,7 +32,8 @@ public class FacePlusPlusTest {
     	map.put("return_landmark", "0");
     	map.put("return_attributes", "gender,age,beauty,ethnicity,emotion,skinstatus");
     	
-    	String result = HttpClientUtils.doHttpsPost(url, map,"utf-8");
+//    	String result = HttpClientUtils.doHttpsPost(url, map,"utf-8");
+    	String result = RemoteUtil.post(url, map);
     	System.out.println(result);
 	}
 	
@@ -49,7 +56,11 @@ public class FacePlusPlusTest {
 	}
 	
 	public static void main(String[] args) {
-		detect("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=665718205,2978073373&fm=27&gp=0.jpg");
-		faceAnalyze("bfe9ad2079978e954d9ae03232ef37b0");
+		detect("http://img.hb.aicdn.com/2e20d2098870c42043fc298c20dd1c047c3d74832f7b8-ln8aeU_fw658");
+//		faceAnalyze("bfe9ad2079978e954d9ae03232ef37b0");
+		double a = 0.1d;
+		double b = 0.7d;
+		System.out.println(a+b);//0.7999999999999999  
+		
 	}
 }
