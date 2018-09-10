@@ -52,8 +52,18 @@ public class TestSynchronized extends Thread {
 	     }
 	}
 	 
+	// todo 覆盖的run方法
 	public void run1() {
-		// todo 覆盖的run方法
+		//synchronized锁定的是对象      this 只会同步一个对象，其他类的对象同样会获得锁，互不干扰。
+		//如果synchronized作用的对象是一个静态变量、一个静态方法或一个类(A.class)，则它取得的锁是对类，该类所有的对象同一把锁。
+		synchronized(this){
+			
+		}
+		
+		//静态成员变量或者是这个类TestSynchronized.class，则会同步这个类的所有对象
+		synchronized(lock){
+			
+		}
 	}
 	   
 	
@@ -67,7 +77,7 @@ public class TestSynchronized extends Thread {
 	 *  
 	 *  总结：
 	 *  A. 无论synchronized关键字加在方法上还是对象上，如果它作用的对象是非静态的，则它取得的锁是对象；
-	 *     如果synchronized作用的对象是一个静态方法或一个类，则它取得的锁是对类，该类所有的对象同一把锁。
+	 *     如果synchronized作用的对象是一个静态变量、一个静态方法或一个类，则它取得的锁是对类，该类所有的对象同一把锁。
 	 *  B. 每个对象只有一个锁（lock）与之相关联，谁拿到这个锁谁就可以运行它所控制的那段代码。
 	 *  C. 实现同步是要很大的系统开销作为代价的，甚至可能造成死锁，所以尽量避免无谓的同步控制。
 	 */

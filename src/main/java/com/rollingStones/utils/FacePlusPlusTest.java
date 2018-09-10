@@ -56,11 +56,14 @@ public class FacePlusPlusTest {
 	}
 	
 	public static void main(String[] args) {
-		detect("http://img.hb.aicdn.com/2e20d2098870c42043fc298c20dd1c047c3d74832f7b8-ln8aeU_fw658");
+		detect("http://img.hb.aicdn.com/4e424bb33e1196d6df8caff5d6f7055625574b8158572-IVfSLL_fw658");
 //		faceAnalyze("bfe9ad2079978e954d9ae03232ef37b0");
-		double a = 0.1d;
-		double b = 0.7d;
+		double a = 0.2d;
+		double b = 0.1d;
 		System.out.println(a+b);//0.7999999999999999  
 		
+		Integer aa = 128;
+		Integer bb = 128;
+		System.out.println(aa==bb);
 	}
 }
