@@ -60,7 +60,7 @@ public class LambdaTest2 {
         
         
         //2.特定类的任意对象的方法引用 语法是Class::method。这个方法没有参数
-        Function<String,String> strFunc = (s) -> String.valueOf(s);
+        Function<String,String> strFunc = s -> String.valueOf(s);
         System.out.println(strFunc.apply("1688"));
         
         Function<String,String> str = String::valueOf;

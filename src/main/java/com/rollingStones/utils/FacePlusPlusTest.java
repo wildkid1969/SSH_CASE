@@ -56,9 +56,9 @@ public class FacePlusPlusTest {
 	}
 	
 	public static void main(String[] args) {
-		detect("http://img.hb.aicdn.com/4e424bb33e1196d6df8caff5d6f7055625574b8158572-IVfSLL_fw658");
+		detect("https://img3.doubanio.com/view/status/m/public/8e015399b059014.jpg");
 //		faceAnalyze("bfe9ad2079978e954d9ae03232ef37b0");
-		double a = 0.2d;
+		double a = 0.7d;
 		double b = 0.1d;
 		System.out.println(a+b);//0.7999999999999999  
 		

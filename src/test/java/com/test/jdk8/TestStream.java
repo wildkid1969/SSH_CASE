@@ -61,7 +61,7 @@ public class TestStream {
         System.out.println("4:"+userList);
        //(5) 有没有交易员是在米兰工作的?
         boolean hasWork = transactions.stream()
-        		.anyMatch((Transaction transaction) -> transaction.getTrader().getCity().equals("Milan"));
+        		.anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
         System.out.println("5:"+hasWork);
        //(6) 打印生活在剑桥的交易员的所有交易额。
         int total = transactions.stream()
@@ -78,15 +78,15 @@ public class TestStream {
         Optional<Transaction> min = transactions.stream()
         		.min(Comparator.comparing(Transaction::getValue));
         System.out.println("8:"+min.orElseThrow(IllegalArgumentException::new));
-       //(9) 分组
+       //(9) 按年份给所有交易分组
         Map<Integer, List<Transaction>> map = transactions.stream()
         		.collect(Collectors.groupingBy(Transaction::getYear));
         System.out.println("9:"+map);
 
         
-        System.out.println(Integer.MAX_VALUE+1<Integer.MAX_VALUE);
+        System.out.println((Integer.MAX_VALUE+1) == Integer.MIN_VALUE);
         System.out.println(Integer.MIN_VALUE-1>Integer.MIN_VALUE);
-        System.out.println(Integer.MAX_VALUE+" | "+Integer.MIN_VALUE);
+        System.out.println(Integer.MAX_VALUE+1+" | "+(Integer.MIN_VALUE-1));
         
     }
     

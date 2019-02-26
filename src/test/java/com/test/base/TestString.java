@@ -71,5 +71,17 @@ public class TestString {
 	    System.out.println("换行\n了吗");
 	    System.out.println("换行\r了吗");
 	    System.out.println("换行\n\r了吗");
+	    
+	    int i = 5;
+        switch(i){
+        case 0:
+            System.out.println("0");break;
+        case 1:
+            System.out.println("1");break;
+        case 2:
+            System.out.println("2");break;
+        default:
+            System.out.println("default");break;
+        }
 	}
 }
