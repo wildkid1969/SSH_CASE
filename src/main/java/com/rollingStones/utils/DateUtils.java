@@ -1036,15 +1036,38 @@ public class DateUtils {
 	       return isSameDate;
 	 }
 
+	public static Date getLastDayOfMonth(String yearMonth) {
+		int year = Integer.parseInt(yearMonth.split("-")[0]);  //年
+		int month = Integer.parseInt(yearMonth.split("-")[1]); //月
+		Calendar cal = Calendar.getInstance();
+		// 设置年份
+		cal.set(Calendar.YEAR, year);
+		// 设置月份
+		cal.set(Calendar.MONTH, month - 1);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		// 获取某月最大天数
+		int lastDay = cal.getActualMaximum(Calendar.DATE);
+//        int lastDay = cal.getMinimum(Calendar.DATE); //获取月份中的最小值，即第一天
+		// 设置日历中月份的最大天数
+		cal.set(Calendar.DAY_OF_MONTH, lastDay);
+//        cal.set(Calendar.DAY_OF_MONTH, lastDay - 1); //上月的第一天减去1就是当月的最后一天
+		return cal.getTime();
+	}
+
+	/**
+	 * 获取指定时间所在月份
+	 * @param date
+	 */
+	public static int getMonth(Date date){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		//老外计算月份从0开始，转换为国内月份需要加1
+		return cal.get(cal.MONTH) + 1;
+	}
+
 
     public static void main(String[] args) {
-
-//		try {
-//			System.out.println(df.parse("2014年05月26日 22时22分22秒").getTime()+"");
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
     	System.out.println(System.currentTimeMillis());
     	System.out.println("DD天HH小时MM分钟".substring("DD天HH小时MM分钟".indexOf("HH")));
     	
@@ -1055,5 +1078,7 @@ public class DateUtils {
     	boolean isSameDate = isSameDate(DateUtils.addDay(new Date(), -1),updateTime);
     	
     	System.out.println(isSameDate);
+
+		System.out.println(getLastDayOfMonth("2020-09"));
 	}
 }

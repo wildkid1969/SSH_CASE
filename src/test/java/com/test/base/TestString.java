@@ -19,6 +19,13 @@ package com.test.base;
  * 		如果是运行期（new出来的）才能确定的就存储在堆中 。
  * 对于equals相等的字符串，在常量池中永远只有一份，在堆中有多份。
  */
+import org.apache.commons.lang.time.DateUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+
 public class TestString {
 	/**
 	 * 通过new产生一个字符串（假设为”Hello”）时，会先去常量池中查找是否已经有了”Hello”对象，
@@ -71,7 +78,7 @@ public class TestString {
 	    System.out.println("换行\n了吗");
 	    System.out.println("换行\r了吗");
 	    System.out.println("换行\n\r了吗");
-	    
+
 	    int i = 5;
         switch(i){
         case 0:
@@ -83,5 +90,45 @@ public class TestString {
         default:
             System.out.println("default");break;
         }
+
+	    double a = 0.6;
+		System.out.println(a+0.1);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd 00:00:00");
+		System.out.println(sdf.format(new Date()));
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		System.out.println(cal.getTime());
+
+		Date viewStartTime = new Date(1594288800000L);
+		Date limitDate = DateUtils.addDays(viewStartTime, 8);
+		//当前时间设为0点
+		cal.setTime(limitDate);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		limitDate = cal.getTime();
+		System.out.println(limitDate);
+
+		Date limitDateMax = DateUtils.addDays(limitDate, 1);
+		long diff = limitDateMax.getTime() - System.currentTimeMillis();
+		Long days = diff / (1000 * 60 * 60 * 24);
+		System.out.println(days);
+
+		String subject = "小学数学/高中数学/初中数学小学数学/高中数学/初中数学小学数学/高中数学/初中数学";
+		if(subject.length() > 5){
+			subject = subject.substring(0,5);
+		}
+		System.out.println(subject);
+
+		String userName = "小张,小王,小李,小徐,小夏,小刘,小潘";
+		String[] newUserName = Arrays.copyOf(userName.split(","), userName.split(",").length<5 ? userName.split(",").length : 5);
+		System.out.println(String.join(",",newUserName));
+		int index = userName.indexOf(",", 5);
+		System.out.println(userName.substring(0,50));
 	}
 }
