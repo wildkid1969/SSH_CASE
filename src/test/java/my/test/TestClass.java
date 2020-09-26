@@ -25,21 +25,6 @@ public class TestClass {
     }  
     
     public static void main(String[] args) {
-//        Point p = new Point();
-//        p.x=1;
-//        p.y=2;
-//        
-//        p.setLocation(4, 5);
-//        System.out.println(p);
-//        
-//        {
-//            //a的作用域只存在于此块内
-//            String a = "abc";
-//        }
-//        
-//        String b = "roxy music";
-//        System.out.println(b.toUpperCase());
-        
         TestClass.getTester();                    //step6
         //先找到程序的入口main()、要执行main（）方法，还得先将TestClass类加载到内存中。
         //那么TestClass类被加载，那么就会先执行TestClass类的静态属性和静态语句块（static），执行先后顺序看谁在前面就先执行谁
@@ -67,7 +52,4 @@ public class TestClass {
         return this.value;
     }
     
-    public static int changeNum(int num){
-        return num++;
-    }
 }
