@@ -9,12 +9,14 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <spring.version>4.0.4.RELEASE</spring.version>
-    <hibernate.version>4.3.5.Final</hibernate.version>
-    <jdk.version>1.8</jdk.version>
-    <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
-    <slf4j.version>1.7.7</slf4j.version>  
-    <log4j.version>1.2.17</log4j.version> 
+        <spring.version>4.0.4.RELEASE</spring.version>
+        <hibernate.version>4.3.5.Final</hibernate.version>
+        <jdk.version>1.8</jdk.version>
+        <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+        <slf4j.version>1.7.7</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <httpclient.version>4.5.2</httpclient.version>
+        <httpcore.version>4.4.4</httpcore.version>
   </properties>
   
   <build>
@@ -138,7 +140,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>5.1.2.Final</version>
+      <version>6.1.5.Final</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -226,9 +228,23 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.4</version>
+      <version>${httpclient.version}</version>
     </dependency>
-	    
+      <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpcore</artifactId>
+          <version>${httpcore.version}</version>
+      </dependency>
+    <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>3.1</version>
+    </dependency>
+      <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpmime</artifactId>
+          <version>4.5</version>
+      </dependency>
 
   </dependencies>
 </project>
