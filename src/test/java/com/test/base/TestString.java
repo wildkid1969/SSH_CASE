@@ -36,7 +36,7 @@ public class TestString {
 	 * 如果没有则在常量池中创建一个此字符串对象，然后堆中再创建一个常量池中此”Hello”对象的拷贝对象。
 	 * 所以 new  String( "Hello")产生的对象是：一个或者两个。
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String s = "Hello"; 
 		s = "Java "; 
 		String s0 = "Hello"; 
@@ -68,7 +68,7 @@ public class TestString {
 	    System.out.println(str);  
 	    str=String.format("Hi,%s:%s.%s", "王南","王力","王张");       
 	    System.out.println(str);
-	    
+
 	   /**
 	    * %06d :  
 		* %是格式化输入接受参数的标记  
@@ -79,21 +79,10 @@ public class TestString {
 	    String fStr = String.format("%06d",154651321);
 	    System.out.println(fStr);
 	    
-	    System.out.println("换行\n了吗");
+	    System.out.println("换行\n了吗???");
 	    System.out.println("换行\r了吗");
 	    System.out.println("换行\n\r了吗");
 
-	    int i = 5;
-        switch(i){
-        case 0:
-            System.out.println("0");break;
-        case 1:
-            System.out.println("1");break;
-        case 2:
-            System.out.println("2");break;
-        default:
-            System.out.println("default");break;
-        }
 
 	    double a = 0.6;
 		System.out.println(a+0.1);
@@ -154,4 +143,5 @@ public class TestString {
 		StringBuffer out = new StringBuffer(rs);
 		return out.reverse().toString();
 	}
+
 }
