@@ -8,7 +8,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -39,47 +38,56 @@ public class DoubanFilmWarm {
         row2.createCell(10).setCellValue("comments");
 
         int index = 0;
-        for(int i = 0; i<82; i++){
+        for(int i = 0; i<2; i++){
             String url = "https://movie.douban.com/people/50733160/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
 
             Document doc = null;
             try {
                 doc = Jsoup.connect(url).get();
             } catch (IOException e) {
+                e.printStackTrace();
             }
 
             Elements eles = doc.getElementsByAttributeValue("class", "item");
 
             for(int y = 0;y<eles.size();y++){
                 String filmId = eles.get(y).getElementsByAttributeValue("class","pic").first().getElementsByTag("a").attr("href");
-                String title = eles.get(y).getElementsByAttributeValue("class","title").text();
+                String titleTemp = eles.get(y).getElementsByAttributeValue("class","title").text();
+                String title = titleTemp.split("/")[0].replaceAll("\\[可播放\\]","");
                 String otherName = null;
-                if(title.contains("/")){
-                    otherName = title.substring(title.indexOf("/")).replaceAll("\\[可播放\\]","").replaceFirst("/ ","");
+                if(titleTemp.contains("/")){
+                    otherName = titleTemp.substring(titleTemp.indexOf("/")).replaceAll("\\[可播放\\]","").replaceFirst("/ ","");
                 }else{
-                    otherName = title.replaceAll("\\[可播放\\]","").replaceFirst("/ ","");
+                    otherName = titleTemp.replaceAll("\\[可播放\\]","").replaceFirst("/ ","");
                 }
 
+                String pic = eles.get(y).getElementsByAttributeValue("class","pic").first().getElementsByTag("img").attr("src");
                 String yearTemp = eles.get(y).getElementsByAttributeValue("class","intro").text().split("/")[0];
                 String year = "-";
                 if(anyNum.matcher(yearTemp).matches()){
                     year = yearTemp.split("\\(")[0];
                 }
 
-                String area = eles.get(y).getElementsByAttributeValue("class","intro").text().split("/")[0];
+                String areaTemp = eles.get(y).getElementsByAttributeValue("class","intro").text().split("/")[0];
+                String area = "-";
+                if(areaTemp.contains("(") && areaTemp.split("\\(").length>1){
+                    area = areaTemp.split("\\(")[1].replaceAll("\\)","");
+                }
+
+                String watchTime = eles.get(y).getElementsByAttributeValue("class","date").text();
                 String tags = eles.get(y).getElementsByAttributeValue("class","tags").text().replaceAll("标签: ","");
                 String comments = eles.get(y).getElementsByAttributeValue("class","comment").text();
 
                 System.out.println(notNum.matcher(filmId).replaceAll(""));
-                System.out.println(title.split("/")[0]);
+                System.out.println(title);
                 System.out.println(otherName);
-                System.out.println(eles.get(y).getElementsByAttributeValue("class","pic").first().getElementsByTag("img").attr("src"));
+                System.out.println(pic);
                 System.out.println(eles.get(y).getElementsByAttributeValue("class","intro").text());
                 System.out.println(year);
                 if(area.contains("(") && area.split("\\(").length>1){
                     System.out.println(area.split("\\(")[1].replaceAll("\\)",""));
                 }
-                System.out.println(eles.get(y).getElementsByAttributeValue("class","date").text());
+                System.out.println(watchTime);
                 System.out.println(tags);
                 System.out.println(comments);
 
@@ -87,9 +95,9 @@ public class DoubanFilmWarm {
                 HSSFRow row3 = sheet.createRow((y + 1)+index);
                 row3.createCell(0).setCellValue(notNum.matcher(filmId).replaceAll(""));
                 row3.createCell(1).setCellValue(filmId);
-                row3.createCell(2).setCellValue(title.split("/")[0]);
+                row3.createCell(2).setCellValue(title);
                 row3.createCell(3).setCellValue(otherName);
-                row3.createCell(4).setCellValue(eles.get(y).getElementsByAttributeValue("class","pic").first().getElementsByTag("img").attr("src"));
+                row3.createCell(4).setCellValue(pic);
                 row3.createCell(5).setCellValue(eles.get(y).getElementsByAttributeValue("class","intro").text());
                 row3.createCell(6).setCellValue(year);
                 if(area.contains("(") && area.split("\\(").length>1){
@@ -98,7 +106,7 @@ public class DoubanFilmWarm {
                     row3.createCell(7).setCellValue("-");
                 }
 
-                row3.createCell(8).setCellValue(eles.get(y).getElementsByAttributeValue("class","date").text());
+                row3.createCell(8).setCellValue(watchTime);
                 if(StringUtils.isNotEmpty(tags)){
                     row3.createCell(9).setCellValue(tags);
                 }else{
@@ -111,12 +119,15 @@ public class DoubanFilmWarm {
                     row3.createCell(10).setCellValue("-");
                 }
 
+                //下载图片
+                HttpClientUtils.downloadNetPic(pic, watchTime+"-"+title.split("/")[0]+"("+year+")"+"("+area+")"+".jpg", "E://MyDoubanFilmPic");
+
             }
 
             index+=15;
         }
 
-        wkb.write(new File("d://doubanFilm.xls"));
+//        wkb.write(new File("d://doubanFilm.xls"));
         System.out.println("creating file success!");
 
     }
