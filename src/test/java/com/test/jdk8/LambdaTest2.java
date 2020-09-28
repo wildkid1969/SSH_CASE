@@ -1,17 +1,22 @@
 package com.test.jdk8;
 
+import com.google.common.collect.Lists;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import com.google.common.collect.Lists;
+import java.util.stream.Collectors;
 /**
  * 测试 java8里的方法引用
  * Created by mengya on 2018年4月24日
@@ -99,5 +104,28 @@ public class LambdaTest2 {
         final List<Point> personList = Arrays.asList(new Point(1,2),new Point(1,2));
         Set<Point> personSet = transferElements(personList,() -> new HashSet<>());
         System.out.println("personSet:"+personSet);
+
+
+        List<CourseUserId> courseUserList = Lists.newArrayList();
+        CourseUserId cui = new CourseUserId();
+        cui.setCourseId(2056);
+        cui.setInsId(1793);
+        cui.setUserId(37899);
+        cui.setLastUpdateTime(new Date());
+        cui.setStatus(8);
+        courseUserList.add(cui);
+
+        Integer userId = 37899;
+
+        Map<Integer, CourseUserId> userStatusMap = courseUserList.stream()
+                .filter(c -> ((c.getUserId() != null && c.getUserId() == userId.intValue())
+                        || (c.getOperatorUser() != null && c.getOperatorUser() == userId.intValue())))
+                .collect(Collectors.groupingBy(CourseUserId::getCourseId,
+                        Collectors.collectingAndThen(
+                                Collectors.maxBy(
+                                        Comparator.comparing(CourseUserId::getLastUpdateTime)), Optional::get))
+                );
+
+        System.out.println(userStatusMap.get(2056).getStatus());
 	}
 }

@@ -1,5 +1,9 @@
 package com.rollingStones.utils;
 
+import com.google.gson.Gson;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -12,12 +16,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.util.StringUtils;
-
-import com.google.gson.Gson;
-
 public class CommonUtils {
 
 	public static String SMSURL = "http://openapi.m.hc360.com/openapi/v1/senMsg/";
@@ -26,11 +24,24 @@ public class CommonUtils {
 	public static final long MILLIS_IN_DAY = 1000L * SECONDS_IN_DAY;
 	private static Gson gson = null;
 
+	/**
+	 * 从字符串里提取数字
+	 * @param s
+	 * @return
+	 */
 	public static String getNumFromString(String s){
 		String regEx="[^0-9]";   
 		Pattern p = Pattern.compile(regEx);   
 		Matcher m = p.matcher(s);   
 		return m.replaceAll("").trim();
+	}
+
+	/*
+	 * 是数字返回true
+	 */
+	public static boolean isDigital(String n){
+		Pattern pattern = Pattern.compile("[0-9]*");
+		return !StringUtils.isEmpty(n) && pattern.matcher(n).matches();
 	}
 	
 	//递归计算阶乘
@@ -96,13 +107,6 @@ public class CommonUtils {
 		return d;
 	}
 	
-	/*
-	 * 不是数字返回true
-	 */
-	public static boolean noDigital(String n){
-		Pattern pattern = Pattern.compile("[0-9]*");
-		return StringUtils.isEmpty(n) || !pattern.matcher(n).matches();
-	}
 
 	/*
 	 * 把对象转成JSON字符串

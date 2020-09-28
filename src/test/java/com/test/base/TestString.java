@@ -19,12 +19,16 @@ package com.test.base;
  * 		如果是运行期（new出来的）才能确定的就存储在堆中 。
  * 对于equals相等的字符串，在常量池中永远只有一份，在堆中有多份。
  */
+import com.google.common.collect.Sets;
+import com.rollingStones.utils.CommonUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class TestString {
 	/**
@@ -125,10 +129,29 @@ public class TestString {
 		}
 		System.out.println(subject);
 
-		String userName = "小张,小王,小李,小徐,小夏,小刘,小潘";
-		String[] newUserName = Arrays.copyOf(userName.split(","), userName.split(",").length<5 ? userName.split(",").length : 5);
-		System.out.println(String.join(",",newUserName));
-		int index = userName.indexOf(",", 5);
-		System.out.println(userName.substring(0,50));
+		String userName = "小张,小王,小李,小刘,小陈,小赵,小李,小李";
+
+		String[] arr = userName.split(",");
+		HashSet<String> strings = Sets.newHashSet(arr);
+		System.out.println(strings.stream().limit(5).collect(Collectors.joining(",")));
+
+		System.out.println("s".split(",")[0]);
+
+		Pattern p = Pattern.compile(".*\\d+.*");
+		System.out.println(p.matcher("2020-01").matches());
+
+		Pattern p1 = Pattern.compile("[^0-9]");
+		String id = "https://movie.douban.com/subject/35193180/";
+		System.out.println(p1.matcher(id).replaceAll(""));
+
+		System.out.println(CommonUtils.isDigital("20-02"));
+
+	}
+
+	public static String removeRepeat(String str) {
+		StringBuffer sb = new StringBuffer(str);
+		String rs = sb.reverse().toString().replaceAll("(.)(?=.*\\1)", "");
+		StringBuffer out = new StringBuffer(rs);
+		return out.reverse().toString();
 	}
 }

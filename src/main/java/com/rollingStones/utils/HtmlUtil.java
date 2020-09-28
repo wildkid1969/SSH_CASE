@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -99,7 +98,7 @@ public class HtmlUtil {
 
         Pattern p_space = Pattern.compile(regEx_space, Pattern.CASE_INSENSITIVE);  
         Matcher m_space = p_space.matcher(htmlStr);  
-        htmlStr = m_space.replaceAll(""); // 过滤空格回车标签  
+//        htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
         return htmlStr.trim(); // 返回文本字符串
     }
     
