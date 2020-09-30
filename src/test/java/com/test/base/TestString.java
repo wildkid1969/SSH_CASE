@@ -20,7 +20,6 @@ package com.test.base;
  * 对于equals相等的字符串，在常量池中永远只有一份，在堆中有多份。
  */
 import com.google.common.collect.Sets;
-import com.rollingStones.utils.CommonUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -133,7 +132,7 @@ public class TestString {
 		String id = "https://movie.douban.com/subject/35193180/";
 		System.out.println(p1.matcher(id).replaceAll(""));
 
-		System.out.println(CommonUtils.isDigital("20-02"));
+		System.out.println(System.getProperty("user.dir"));
 
 	}
 

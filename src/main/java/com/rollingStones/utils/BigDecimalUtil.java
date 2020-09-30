@@ -164,5 +164,12 @@ public class BigDecimalUtil {
     	
     	DecimalFormat df = new DecimalFormat("#.00");  
     	System.out.println(df.format(r));
+
+        System.out.println(BigDecimalUtil.round(5.997,2));
+        Double a = 6.00;
+        Double b = 6.0;
+
+        System.out.println(6.00==6.0);
+        System.out.println("eq:"+BigDecimalUtil.eq(a,b));
 	}
 }
