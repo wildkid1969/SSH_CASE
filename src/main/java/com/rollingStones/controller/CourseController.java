@@ -1,14 +1,15 @@
 package com.rollingStones.controller;
 
+import org.springframework.stereotype.Controller;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import org.springframework.stereotype.Controller;
 
 @Controller
 public class CourseController {
@@ -42,6 +43,9 @@ public class CourseController {
 		
 		System.out.println(finalList);
 		System.out.println(finalList.size());
+
+		String[] trainRoleIdArr = "1213".split(",");
+		System.out.println(Arrays.toString(trainRoleIdArr));
 	}
 	
 }

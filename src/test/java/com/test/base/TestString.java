@@ -83,5 +83,14 @@ public class TestString {
         default:
             System.out.println("default");break;
         }
+
+        String viewUrl = "https://prdlive.ainemo.com/prdnemo";
+
+		int index = viewUrl.indexOf("//");
+		if(index > 0){
+			viewUrl = viewUrl.substring(index);
+		}
+
+		System.out.println(viewUrl);
 	}
 }

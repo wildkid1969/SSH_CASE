@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.rollingStones</groupId>
-  <artifactId>rollingStones</artifactId>
+  <artifactId>SSH_CASE</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>rollingStones Maven Webapp</name>
+  <name>SSH_CASE</name>
   <url>http://maven.apache.org</url>
 
   <properties>

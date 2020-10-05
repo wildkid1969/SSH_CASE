@@ -57,7 +57,7 @@ public class TestClass {
         
         System.out.println(args==null);//false
         System.out.println(args.length);//0
-        
+
     }
     
     

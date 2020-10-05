@@ -1,7 +1,5 @@
 package com.test.jdk8;
 
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,9 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
-
-import org.junit.Test;
 
 public class TestStream {
     public static void main(String[] args) throws ClassNotFoundException {
@@ -24,12 +21,12 @@ public class TestStream {
 
         //交易记录  1 人名2年份 3 钱
         List<Transaction> transactions = Arrays.asList(
-                new Transaction(brian, 2011, 300),
+                new Transaction(brian, 2013, 300),
                 new Transaction(raoul, 2012, 1000),
                 new Transaction(raoul, 2011, 400),
                 new Transaction(mario, 2012, 710),
-                new Transaction(mario, 2012, 700),
-                new Transaction(alan, 2012, 950)
+                new Transaction(mario, 2015, 700),
+                new Transaction(alan, 2017, 950)
         );
         
 
@@ -83,59 +80,16 @@ public class TestStream {
         		.collect(Collectors.groupingBy(Transaction::getYear));
         System.out.println("9:"+map);
 
-        
+        //(10) 按照年份去重
+        ArrayList<Transaction> yearList = transactions.stream()
+                .collect(Collectors.collectingAndThen(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(o -> o.getYear()))
+                ), ArrayList::new));
+        System.out.println("10:"+yearList);
+
         System.out.println((Integer.MAX_VALUE+1) == Integer.MIN_VALUE);
         System.out.println(Integer.MIN_VALUE-1>Integer.MIN_VALUE);
         System.out.println(Integer.MAX_VALUE+1+" | "+(Integer.MIN_VALUE-1));
         
-    }
-    
-    //测试串行、并行流的执行时间
-    @Test
-    public void testStream() {
-        // 起始时间
-        LocalTime start = LocalTime.now();
-
-        List<Integer> list = new ArrayList<>();
-        // 将10000-1存入list中
-        for (int i = 10000; i >= 1; i--) {
-            list.add(i);
-        }
-
-        list.stream()// 获取串行流
-                .sorted()// 按自然排序，即按数字从小到大排序
-                .count();// count()是终止操作，有终止操作才会执行中间操作sorted()
-
-        // 终止时间
-        LocalTime end = LocalTime.now();
-
-        // 时间间隔
-        Duration duration = Duration.between(start, end);
-        // 输出时间间隔毫秒值
-        System.out.println("串行："+duration.toMillis());
-    }
-
-    @Test
-    public void testParallelStream() {
-        // 起始时间
-        LocalTime start = LocalTime.now();
-
-        List<Integer> list = new ArrayList<>();
-        // 将10000-1存入list中
-        for (int i = 10000; i >= 1; i--) {
-            list.add(i);
-        }
-
-        list.parallelStream()// 获取并行流
-                .sorted()// 按自然排序，即按数字从小到大排序
-                .count();// count()是终止操作，有终止操作才会执行中间操作sorted()
-
-        // 终止时间
-        LocalTime end = LocalTime.now();
-
-        // 时间间隔
-        Duration duration = Duration.between(start, end);
-        // 输出时间间隔毫秒值
-        System.out.println("并行："+duration.toMillis());
     }
 }
