@@ -19,13 +19,23 @@ package com.test.base;
  * 		如果是运行期（new出来的）才能确定的就存储在堆中 。
  * 对于equals相等的字符串，在常量池中永远只有一份，在堆中有多份。
  */
+import com.google.common.collect.Sets;
+import org.apache.commons.lang.time.DateUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 public class TestString {
 	/**
 	 * 通过new产生一个字符串（假设为”Hello”）时，会先去常量池中查找是否已经有了”Hello”对象，
 	 * 如果没有则在常量池中创建一个此字符串对象，然后堆中再创建一个常量池中此”Hello”对象的拷贝对象。
 	 * 所以 new  String( "Hello")产生的对象是：一个或者两个。
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String s = "Hello"; 
 		s = "Java "; 
 		String s0 = "Hello"; 
@@ -57,7 +67,7 @@ public class TestString {
 	    System.out.println(str);  
 	    str=String.format("Hi,%s:%s.%s", "王南","王力","王张");       
 	    System.out.println(str);
-	    
+
 	   /**
 	    * %06d :  
 		* %是格式化输入接受参数的标记  
@@ -68,29 +78,68 @@ public class TestString {
 	    String fStr = String.format("%06d",154651321);
 	    System.out.println(fStr);
 	    
-	    System.out.println("换行\n了吗");
+	    System.out.println("换行\n了吗???");
 	    System.out.println("换行\r了吗");
 	    System.out.println("换行\n\r了吗");
-	    
-	    int i = 5;
-        switch(i){
-        case 0:
-            System.out.println("0");break;
-        case 1:
-            System.out.println("1");break;
-        case 2:
-            System.out.println("2");break;
-        default:
-            System.out.println("default");break;
-        }
 
-        String viewUrl = "https://prdlive.ainemo.com/prdnemo";
+	    double a = 0.6;
+		System.out.println(a+0.1);
 
-		int index = viewUrl.indexOf("//");
-		if(index > 0){
-			viewUrl = viewUrl.substring(index);
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd 00:00:00");
+		System.out.println(sdf.format(new Date()));
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		System.out.println(cal.getTime());
+
+		Date viewStartTime = new Date(1594288800000L);
+		Date limitDate = DateUtils.addDays(viewStartTime, 8);
+		//当前时间设为0点
+		cal.setTime(limitDate);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		limitDate = cal.getTime();
+		System.out.println(limitDate);
+
+		Date limitDateMax = DateUtils.addDays(limitDate, 1);
+		long diff = limitDateMax.getTime() - System.currentTimeMillis();
+		Long days = diff / (1000 * 60 * 60 * 24);
+		System.out.println(days);
+
+		String subject = "小学数学/高中数学/初中数学小学数学/高中数学/初中数学小学数学/高中数学/初中数学";
+		if(subject.length() > 5){
+			subject = subject.substring(0,5);
 		}
+		System.out.println(subject);
 
-		System.out.println(viewUrl);
+		String userName = "小张,小王,小李,小刘,小陈,小赵,小李,小李";
+
+		String[] arr = userName.split(",");
+		HashSet<String> strings = Sets.newHashSet(arr);
+		System.out.println(strings.stream().limit(5).collect(Collectors.joining(",")));
+
+		System.out.println("s".split(",")[0]);
+
+		Pattern p = Pattern.compile(".*\\d+.*");
+		System.out.println(p.matcher("2020-01").matches());
+
+		Pattern p1 = Pattern.compile("[^0-9]");
+		String id = "https://movie.douban.com/subject/35193180/";
+		System.out.println(p1.matcher(id).replaceAll(""));
+
+		System.out.println(System.getProperty("user.dir"));
+
 	}
+
+	public static String removeRepeat(String str) {
+		StringBuffer sb = new StringBuffer(str);
+		String rs = sb.reverse().toString().replaceAll("(.)(?=.*\\1)", "");
+		StringBuffer out = new StringBuffer(rs);
+		return out.reverse().toString();
+	}
+
 }
