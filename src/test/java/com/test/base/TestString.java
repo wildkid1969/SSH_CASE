@@ -82,7 +82,6 @@ public class TestString {
 	    System.out.println("换行\r了吗");
 	    System.out.println("换行\n\r了吗");
 
-
 	    double a = 0.6;
 		System.out.println(a+0.1);
 
