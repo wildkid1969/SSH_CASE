@@ -86,6 +86,10 @@ public class BigDecimalUtil {
         return round(amount, scale, RoundingMode.HALF_UP);
     }
 
+    public static double roundDown(double amount, int scale) {
+        return round(amount, scale, RoundingMode.DOWN);
+    }
+
     /**
      * 提供精确的小数位取舍处理
      * @param amount 需要四舍五入的数字
@@ -162,14 +166,14 @@ public class BigDecimalUtil {
     	double r = round(amount, 2);
     	System.out.println(r);
     	
-    	DecimalFormat df = new DecimalFormat("#.00");  
+    	DecimalFormat df = new DecimalFormat("#.00");
     	System.out.println(df.format(r));
 
-        System.out.println(BigDecimalUtil.round(5.997,2));
-        Double a = 6.00;
-        Double b = 6.0;
+        System.out.println(BigDecimalUtil.roundDown(7.991,2));
 
-        System.out.println(6.00==6.0);
-        System.out.println("eq:"+BigDecimalUtil.eq(a,b));
+        double price = BigDecimalUtil.multiply(0.10, 19.99);
+        System.out.println(price);
+        System.out.println(BigDecimalUtil.roundDown(price,2));
+        System.out.println(BigDecimalUtil.less(0.999, 1.0));
 	}
 }

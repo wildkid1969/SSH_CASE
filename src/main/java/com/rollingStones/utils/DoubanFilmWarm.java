@@ -38,7 +38,7 @@ public class DoubanFilmWarm {
         row2.createCell(10).setCellValue("comments");
 
         int index = 0;
-        for(int i = 0; i<2; i++){
+        for(int i = 0; i<82; i++){
             String url = "https://movie.douban.com/people/50733160/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
 
             Document doc = null;
@@ -120,7 +120,7 @@ public class DoubanFilmWarm {
                 }
 
                 //下载图片
-                HttpClientUtils.downloadNetPic(pic, watchTime+"-"+title.split("/")[0]+"("+year+")"+"("+area+")"+".jpg", "E://MyDoubanFilmPic");
+                HttpClientUtils.downloadNetPic(pic, watchTime+"-"+title.replace(":","：").split("/")[0]+"("+year+")"+"("+area+")"+".jpg", "E://MyDoubanFilmPic");
 
             }
 
