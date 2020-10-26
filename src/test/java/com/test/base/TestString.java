@@ -133,6 +133,15 @@ public class TestString {
 
 		System.out.println(System.getProperty("user.dir"));
 
+		//4 0:1 41:1 2:1 3:1 4:1 8:1 5:1 32:1 36:1
+		Date date = new Date();
+		double aaa = 12.0;
+		System.out.println(String.format("%s 0:%s 1:%f","sdf",date,aaa));
+
+		String pub = "邵军 主编 / 安徽美术出版社 / 2017-11 / 49.80元";
+		String[] pubArr = pub.split("/");
+		System.out.println(pubArr.length);
+
 	}
 
 	public static String removeRepeat(String str) {
