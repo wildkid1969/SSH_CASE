@@ -142,6 +142,9 @@ public class TestString {
 		String[] pubArr = pub.split("/");
 		System.out.println(pubArr.length);
 
+		String userDir = System.getProperty("user.dir");
+		System.out.println(userDir);
+
 	}
 
 	public static String removeRepeat(String str) {
