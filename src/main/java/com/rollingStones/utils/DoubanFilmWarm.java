@@ -1,5 +1,6 @@
 package com.rollingStones.utils;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -8,7 +9,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -39,11 +42,29 @@ public class DoubanFilmWarm {
 
         int index = 0;
         for(int i = 0; i<82; i++){
-            String url = "https://movie.douban.com/people/50733160/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
+            String url = "https://movie.douban.com/people/solodongdong/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
 
             Document doc = null;
             try {
-                doc = Jsoup.connect(url).get();
+                Map<String,String> cookieMap = Maps.newHashMap();
+                cookieMap.put("dbcl2","\"50733160:JY12QebKYeY\"");
+                cookieMap.put("douban-fav-remind","1");
+                cookieMap.put("gr_user_id","764728cc-9b64-4843-ab72-d351c7a36822");
+                cookieMap.put("ll","\"108288\"");
+                cookieMap.put("viewed","\"1475933\"");
+                cookieMap.put("_pk_id.100001.afe6","c02eb0ceedc8ddf2.1607496350.44.1611896042.1611892417.");
+                cookieMap.put("_pk_ref.100001.afe6","%5B%22%22%2C%22%22%2C1611896042%2C%22https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DPbZIZDtTT2HzNZjWsUNS5UyPN2m8HPzxiVRJDqw8hRrAkoTafkkiR_Gen6D9oE8JlvP7AZtvY1hqonic6eXDY_%26wd%3D%26eqid%3De74e7bf50001f1b5000000036007a30e%22%5D");
+                cookieMap.put("_pk_ses.100001.afe6","*");
+                doc = Jsoup.connect(url)
+                        .header("Host", "movie.douban.com")
+                        .header("Referer","https://www.douban.com/people/solodongdong/")
+                        .header("Sec-Fetch-Dest","document")
+                        .header("Sec-Fetch-Mode","navigate")
+                        .header("Sec-Fetch-Site","same-origin")
+                        .header("Sec-Fetch-User","?1")
+                        .header("Upgrade-Insecure-Requests","1")
+                        .header("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36")
+                        .cookies(cookieMap).get();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -120,14 +141,14 @@ public class DoubanFilmWarm {
                 }
 
                 //下载图片
-                HttpClientUtils.downloadNetPic(pic, watchTime+"-"+title.replace(":","：").split("/")[0]+"("+year+")"+"("+area+")"+".jpg", "E://MyDoubanFilmPic");
+//                HttpClientUtils.downloadNetPic(pic, watchTime+"-"+title.replace(":","：").split("/")[0]+"("+year+")"+"("+area+")"+".jpg", "E://MyDoubanFilmPic");
 
             }
 
             index+=15;
         }
 
-//        wkb.write(new File("d://doubanFilm.xls"));
+        wkb.write(new File("d://doubanFilm.xls"));
         System.out.println("creating file success!");
 
     }
