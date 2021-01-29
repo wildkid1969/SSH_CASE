@@ -19,17 +19,22 @@ package com.test.base;
  * 		如果是运行期（new出来的）才能确定的就存储在堆中 。
  * 对于equals相等的字符串，在常量池中永远只有一份，在堆中有多份。
  */
+
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TestString {
+	Pattern p = Pattern.compile("1[3456789]\\d{9}");
 	/**
 	 * 通过new产生一个字符串（假设为”Hello”）时，会先去常量池中查找是否已经有了”Hello”对象，
 	 * 如果没有则在常量池中创建一个此字符串对象，然后堆中再创建一个常量池中此”Hello”对象的拷贝对象。
@@ -85,30 +90,6 @@ public class TestString {
 	    double a = 0.6;
 		System.out.println(a+0.1);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd 00:00:00");
-		System.out.println(sdf.format(new Date()));
-
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		System.out.println(cal.getTime());
-
-		Date viewStartTime = new Date(1594288800000L);
-		Date limitDate = DateUtils.addDays(viewStartTime, 8);
-		//当前时间设为0点
-		cal.setTime(limitDate);
-		cal.set(Calendar.HOUR_OF_DAY, 23);
-		cal.set(Calendar.MINUTE, 59);
-		cal.set(Calendar.SECOND, 59);
-		limitDate = cal.getTime();
-		System.out.println(limitDate);
-
-		Date limitDateMax = DateUtils.addDays(limitDate, 1);
-		long diff = limitDateMax.getTime() - System.currentTimeMillis();
-		Long days = diff / (1000 * 60 * 60 * 24);
-		System.out.println(days);
 
 		String subject = "小学数学/高中数学/初中数学小学数学/高中数学/初中数学小学数学/高中数学/初中数学";
 		if(subject.length() > 5){
@@ -141,9 +122,12 @@ public class TestString {
 		String pub = "邵军 主编 / 安徽美术出版社 / 2017-11 / 49.80元";
 		String[] pubArr = pub.split("/");
 		System.out.println(pubArr.length);
+		System.out.println(pub.contains("美术1"));
 
-		String userDir = System.getProperty("user.dir");
-		System.out.println(userDir);
+		System.out.println(p.matcher("19978561235").matches());
+
+		String replaceStr = "http://www.ainemo.com/";
+		System.out.println(replaceStr.replaceAll("http://","https://"));
 
 	}
 

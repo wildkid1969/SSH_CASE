@@ -1,8 +1,12 @@
 package com.test.jdk8;
 
+import com.google.common.collect.Lists;
+import com.rollingStones.utils.DateUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -90,6 +94,23 @@ public class TestStream {
         System.out.println((Integer.MAX_VALUE+1) == Integer.MIN_VALUE);
         System.out.println(Integer.MIN_VALUE-1>Integer.MIN_VALUE);
         System.out.println(Integer.MAX_VALUE+1+" | "+(Integer.MIN_VALUE-1));
+
+        List<CourseUserId> msgList = Lists.newArrayList();
+        CourseUserId cui = new CourseUserId();
+        cui.setId(1);
+        cui.setCreateTime(new Date());
+        msgList.add(cui);
+
+        CourseUserId cui2 = new CourseUserId();
+        cui2.setId(2);
+        cui2.setCreateTime(DateUtils.addDay(new Date(),2));
+        msgList.add(cui2);
+
+        msgList = msgList.stream()
+                .sorted(Comparator.comparing(CourseUserId::getCreateTime).reversed())
+                .collect(Collectors.toList());
+
+        System.out.println(msgList);
         
     }
 }
