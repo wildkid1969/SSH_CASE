@@ -15,9 +15,6 @@ import java.util.regex.Pattern;
 public class TestDate {
     public static void main(String[] args) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
         Date now = cal.getTime();
 
         System.out.println(now);
@@ -53,10 +50,12 @@ public class TestDate {
         System.out.println(one.getTime()==-28800000);
 
         Calendar cal3 = Calendar.getInstance();
-        cal3.set(1970, 0, 01, 0, 0, 0);
-        cal3.set(Calendar.MILLISECOND,0);
-        Date firstYear = cal3.getTime();
-        System.out.println(firstYear);
+        cal3.set(2021, 3, 25, 23, 33, 0);
+        Date time1 = cal3.getTime();
+        System.out.println(com.rollingStones.utils.DateUtils.getDateDifferByType(now, time1,1));
+        System.out.println(com.rollingStones.utils.DateUtils.dateToStr(now, "MM/dd"));
+
+
 
     }
 }

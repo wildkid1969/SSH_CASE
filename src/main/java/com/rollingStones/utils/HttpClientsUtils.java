@@ -1,5 +1,6 @@
 package com.rollingStones.utils;
 
+import com.google.common.collect.Maps;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -131,6 +132,10 @@ public class HttpClientsUtils {
             httpClient = getHttpClient();
             // 配置请求信息
             httpPost.setConfig(requestConfig);
+            httpPost.setHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.setHeader("User-Agent","Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/0.7.0 MicroMessenger/6.3.9 Language/zh_CN webview/0");
+            httpPost.setHeader("Referer", "https://r5v794xg62mw3.v.jisutp.com/detail?iid=062bym5h3x2v0");
+            httpPost.setHeader("token", "51f05a3a6f26be3d0d13de9f73ebace5");
             // 执行请求
             response = httpClient.execute(httpPost);
             // 得到响应实例
@@ -397,7 +402,11 @@ public class HttpClientsUtils {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(sendHttpGet("http://192.168.5.101:5000/api/v0.1.0/service/?user_id=4988923"));
+        Map<String,String> map = Maps.newHashMap();
+        map.put("data[id][]", "062bym5h3x2v0");
+//        String result = sendHttpPost("https://r5v794xg62mw3.v.jisutp.com/sendVote", map);
+        String result = sendHttpGet("https://r5v794xg62mw3.v.jisutp.com/detail?iid=062bym5h3x2v0&ck=aovhxsz0c6m8jdshjc4t1xucoqrsgbta");
+        System.out.println(result);
 
     }
 }
