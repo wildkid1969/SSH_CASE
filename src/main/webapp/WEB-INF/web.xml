@@ -4,7 +4,18 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="true" version="3.0">
 
-    <display-name>rollingStones</display-name>
+    <display-name>SSH_CASE</display-name>
+
+    <!-- 加载顺序是: <context-param>-> <listener> -> <filter> -> <servlet> -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:hibernate/hibernate.cfg.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -18,15 +29,7 @@
         <servlet-name>spring-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
-    <listener>
-	　　<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:hibernate/hibernate.cfg.xml</param-value>
-	</context-param>
-    
+
     <!-- Log4j配置 -->
     <context-param>
         <param-name>log4jConfigLocation</param-name>

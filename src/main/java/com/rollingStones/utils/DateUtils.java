@@ -1094,4 +1094,41 @@ public class DateUtils {
 		return cal.getTime();
 	}
 
+	/**
+	 * 获取时间差
+	 *
+	 * @param date1
+	 * @param date2
+	 * @param type 1返回天数 2返回小时数 3返回分钟数 4返回秒数   默认返回0
+	 * @return date1-date2的时间差
+	 */
+	public static long getDateDifferByType(Date date1, Date date2,int type) {
+		long nd = 1000 * 24 * 60 * 60;
+		long nh = 1000 * 60 * 60;
+		long nm = 1000 * 60;
+		long ns = 1000;
+		// 获得两个时间的毫秒时间差异
+		long diff = date1.getTime() - date2.getTime();
+		// 计算差多少天
+		long day = diff / nd;
+		// 计算差多少小时
+		long hour = diff / nh;
+		// 计算差多少分钟
+		long min = diff / nm;
+		// 计算差多少秒//输出结果
+		long sec = diff / ns;
+
+		if(type == 1){
+			return day;
+		}else if(type == 2){
+			return hour;
+		}else if(type == 3){
+			return min;
+		}else if(type == 4){
+			return sec;
+		}
+
+		return 0;
+	}
+
 }
