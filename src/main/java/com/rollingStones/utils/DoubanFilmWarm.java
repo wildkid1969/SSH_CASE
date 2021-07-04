@@ -42,11 +42,7 @@ public class DoubanFilmWarm {
 
         int index = 0;
         for(int i = 0; i<82; i++){
-<<<<<<< HEAD
             String url = "https://movie.douban.com/people/50733160/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
-=======
-            String url = "https://movie.douban.com/people/solodongdong/collect?start="+index+"&sort=time&rating=all&filter=all&mode=grid";
->>>>>>> 14e2ed0481129eb25f5d6c6118e66214b63f659e
 
             Document doc = null;
             try {
